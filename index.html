@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>架空動詞ジェネレータ</title>
+    <style>
+        button {
+            border: 4px solid #00B0FF;
+            border-radius: 0;
+            background: #fff;
+            color: #00B0FF;
+            font-size: 1.5em;
+            padding: 5px;
+        }
+
+        button:hover {
+            color: #fff;
+            background: #00B0FF;
+        }
+
+        html {
+            font-family: Arial, Helvetica, sans-serif;
+            text-align: center;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .en {
+            font-size: 0.7em;
+        }
+
+        #displaystrings {
+            width: 3.5em;
+            height: 100px;
+            line-height: 100px;
+            padding: 10px;
+            border-radius: 25px;
+            border: 3px solid;
+            font-size: 5em;
+            margin: 30px auto;
+            vertical-align: middle;
+        }
+    </style>
+    <script src="data.js"></script>
+</head>
+
+<body>
+    <h1>架空動詞ジェネレータ</h1>
+    <p>クリック/タップかスペースキーで架空の日本語動詞を生成します。</p>
+    <p class="en">click/tap or press spacebar to generate fictional japanese verb.</p>
+    <div id="displaystrings">
+        Tap me
+    </div>
+    <button onclick="copyText()" id="copy">copy</button>
+    <p>このサイトは<a href="https://note.com/tozaburo/n/n88f6cc8413fc?sub_rt=share_pw">tozaburoさんのサイトを参考にしたものです。</a></p>
+    <p class="minisize">当サービスを使用したことによる一切の責任を負いません。また予告なしにサービスの停止をする場合がございます。ご了承ください。</p>
+    <script>
+        const hiramode_lastchar = ["う","う","う","う","う","く","く","く","く","く","ける","える","める","す","す","す","す","す","る","る","る","る","る","る","る","る","れる","む","む","む","ぐ"];
+        function genVerb() {
+            const rdm_lastchar = hiramode_lastchar[Math.floor(Math.random() * hiramode_lastchar.length)];
+            const rdm_kanji = data.regular[Math.floor(Math.random() * data.regular.length)];
+            const rdm_result = rdm_kanji + rdm_lastchar;
+            document.getElementById('displaystrings').innerHTML = rdm_result;
+        }
+        function copyText() {
+            navigator.clipboard.writeText(document.getElementById('displaystrings').innerText).then(
+            () => {
+                alert('copied!');
+            },
+            () => {
+                alert('copy failed');
+            });
+        }
+        document.onclick = (e) => {
+            if (e.target.closest('#copy')) {
+                
+            } else {
+                genVerb();
+            }
+        };
+        document.onkeydown = (e) => {
+            if (e.key === ' ') {
+                genVerb();
+            }
+        };
+    </script>
+</body>
+</html>
